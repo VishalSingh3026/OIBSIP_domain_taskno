@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Converter | Convert Between °C, °F & K</title>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Meta tags for SEO -->
+    <meta name="description" content="Easy-to-use temperature converter. Convert between Celsius, Fahrenheit, and Kelvin instantly with accurate results.">
+    <meta name="keywords" content="temperature converter, celsius, fahrenheit, kelvin, temperature conversion, calculator">
+</head>
+
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">
+                <span class="temp-symbol">🌡️</span>
+                TempConverter
+            </h1>
+            <p class="tagline">Convert temperatures with precision</p>
+        </div>
+    </header>
+
+    <!-- Main Converter Section -->
+    <main class="main">
+        <div class="container">
+            <!-- Converter Card -->
+            <div class="converter-card">
+                <div class="card-header">
+                    <h2>Temperature Converter</h2>
+                    <p>Enter a temperature value and select the units to convert between Celsius, Fahrenheit, and Kelvin</p>
+                </div>
+
+                <!-- Conversion Form -->
+                <form class="converter-form" id="tempForm">
+                    <!-- Input Section -->
+                    <div class="input-section">
+                        <label for="temperature-input" class="input-label">
+                            Temperature Value
+                        </label>
+                        <div class="input-group">
+                            <input 
+                                type="number" 
+                                id="temperature-input" 
+                                class="temp-input" 
+                                placeholder="Enter temperature..." 
+                                step="any"
+                                required
+                                aria-describedby="input-error"
+                            >
+                            <span class="input-icon">🌡️</span>
+                        </div>
+                        <div id="input-error" class="error-message"></div>
+                    </div>
+
+                    <!-- From Unit Selection -->
+                    <div class="unit-selection">
+                        <label class="selection-label">Convert From:</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="from-celsius" name="from-unit" value="celsius" checked>
+                                <label for="from-celsius" class="radio-label">
+                                    <span class="radio-custom"></span>
+                                    <span class="unit-info">
+                                        <strong>Celsius</strong>
+                                        <small>(°C)</small>
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="from-fahrenheit" name="from-unit" value="fahrenheit">
+                                <label for="from-fahrenheit" class="radio-label">
+                                    <span class="radio-custom"></span>
+                                    <span class="unit-info">
+                                        <strong>Fahrenheit</strong>
+                                        <small>(°F)</small>
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="from-kelvin" name="from-unit" value="kelvin">
+                                <label for="from-kelvin" class="radio-label">
+                                    <span class="radio-custom"></span>
+                                    <span class="unit-info">
+                                        <strong>Kelvin</strong>
+                                        <small>(K)</small>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- To Unit Selection -->
+                    <div class="unit-selection">
+                        <label class="selection-label">Convert To:</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="to-celsius" name="to-unit" value="celsius">
+                                <label for="to-celsius" class="radio-label">
+                                    <span class="radio-custom"></span>
+                                    <span class="unit-info">
+                                        <strong>Celsius</strong>
+                                        <small>(°C)</small>
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="to-fahrenheit" name="to-unit" value="fahrenheit" checked>
+                                <label for="to-fahrenheit" class="radio-label">
+                                    <span class="radio-custom"></span>
+                                    <span class="unit-info">
+                                        <strong>Fahrenheit</strong>
+                                        <small>(°F)</small>
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="to-kelvin" name="to-unit" value="kelvin">
+                                <label for="to-kelvin" class="radio-label">
+                                    <span class="radio-custom"></span>
+                                    <span class="unit-info">
+                                        <strong>Kelvin</strong>
+                                        <small>(K)</small>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Convert Button -->
+                    <div class="button-section">
+                        <button type="submit" class="convert-btn" id="convertBtn">
+                            <span class="btn-icon">🔄</span>
+                            Convert Temperature
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Results Display -->
+                <div class="result-section" id="resultSection">
+                    <div class="result-card">
+                        <h3>Conversion Result</h3>
+                        <div class="result-display">
+                            <div class="original-temp">
+                                <span class="temp-label">Original:</span>
+                                <span class="temp-value" id="originalTemp">--</span>
+                            </div>
+                            <div class="conversion-arrow">→</div>
+                            <div class="converted-temp">
+                                <span class="temp-label">Converted:</span>
+                                <span class="temp-value highlight" id="convertedTemp">--</span>
+                            </div>
+                        </div>
+                        <div class="formula-display" id="formulaDisplay">
+                            <small class="formula-text"></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Conversion Reference -->
+            <div class="reference-section">
+                <h3>Common Temperature References</h3>
+                <div class="reference-grid">
+                    <div class="reference-item">
+                        <h4>Water Freezing Point</h4>
+                        <div class="temp-values">
+                            <span>0°C</span>
+                            <span>32°F</span>
+                            <span>273.15K</span>
+                        </div>
+                    </div>
+                    <div class="reference-item">
+                        <h4>Room Temperature</h4>
+                        <div class="temp-values">
+                            <span>20°C</span>
+                            <span>68°F</span>
+                            <span>293.15K</span>
+                        </div>
+                    </div>
+                    <div class="reference-item">
+                        <h4>Body Temperature</h4>
+                        <div class="temp-values">
+                            <span>37°C</span>
+                            <span>98.6°F</span>
+                            <span>310.15K</span>
+                        </div>
+                    </div>
+                    <div class="reference-item">
+                        <h4>Water Boiling Point</h4>
+                        <div class="temp-values">
+                            <span>100°C</span>
+                            <span>212°F</span>
+                            <span>373.15K</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2024 Temperature Converter. Built with precision and care.</p>
+                <p class="developer-credit">Crafted with ❤️ by <strong>Vishal</strong></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Temperature conversion functions
+        class TemperatureConverter {
+            // Convert from Celsius
+            static celsiusToFahrenheit(celsius) {
+                return (celsius * 9/5) + 32;
+            }
+            
+            static celsiusToKelvin(celsius) {
+                return celsius + 273.15;
+            }
+            
+            // Convert from Fahrenheit
+            static fahrenheitToCelsius(fahrenheit) {
+                return (fahrenheit - 32) * 5/9;
+            }
+            
+            static fahrenheitToKelvin(fahrenheit) {
+                return ((fahrenheit - 32) * 5/9) + 273.15;
+            }
+            
+            // Convert from Kelvin
+            static kelvinToCelsius(kelvin) {
+                return kelvin - 273.15;
+            }
+            
+            static kelvinToFahrenheit(kelvin) {
+                return ((kelvin - 273.15) * 9/5) + 32;
+            }
+            
+            // Main conversion method
+            static convert(value, fromUnit, toUnit) {
+                // Validation for absolute zero limits
+                if (fromUnit === 'kelvin' && value < 0) {
+                    throw new Error('Temperature cannot be below absolute zero (0K)');
+                }
+                if (fromUnit === 'celsius' && value < -273.15) {
+                    throw new Error('Temperature cannot be below absolute zero (-273.15°C)');
+                }
+                if (fromUnit === 'fahrenheit' && value < -459.67) {
+                    throw new Error('Temperature cannot be below absolute zero (-459.67°F)');
+                }
+                
+                // Same unit, no conversion needed
+                if (fromUnit === toUnit) {
+                    return value;
+                }
+                
+                // Conversion logic
+                let result;
+                
+                if (fromUnit === 'celsius') {
+                    if (toUnit === 'fahrenheit') {
+                        result = this.celsiusToFahrenheit(value);
+                    } else if (toUnit === 'kelvin') {
+                        result = this.celsiusToKelvin(value);
+                    }
+                } else if (fromUnit === 'fahrenheit') {
+                    if (toUnit === 'celsius') {
+                        result = this.fahrenheitToCelsius(value);
+                    } else if (toUnit === 'kelvin') {
+                        result = this.fahrenheitToKelvin(value);
+                    }
+                } else if (fromUnit === 'kelvin') {
+                    if (toUnit === 'celsius') {
+                        result = this.kelvinToCelsius(value);
+                    } else if (toUnit === 'fahrenheit') {
+                        result = this.kelvinToFahrenheit(value);
+                    }
+                }
+                
+                return Math.round(result * 100) / 100; // Round to 2 decimal places
+            }
+            
+            // Get formula explanation
+            static getFormula(fromUnit, toUnit) {
+                const formulas = {
+                    'celsius-fahrenheit': '°F = (°C × 9/5) + 32',
+                    'celsius-kelvin': 'K = °C + 273.15',
+                    'fahrenheit-celsius': '°C = (°F - 32) × 5/9',
+                    'fahrenheit-kelvin': 'K = (°F - 32) × 5/9 + 273.15',
+                    'kelvin-celsius': '°C = K - 273.15',
+                    'kelvin-fahrenheit': '°F = (K - 273.15) × 9/5 + 32'
+                };
+                
+                return formulas[`${fromUnit}-${toUnit}`] || 'No conversion needed';
+            }
+        }
+
+        // DOM elements
+        const form = document.getElementById('tempForm');
+        const tempInput = document.getElementById('temperature-input');
+        const resultSection = document.getElementById('resultSection');
+        const originalTempElement = document.getElementById('originalTemp');
+        const convertedTempElement = document.getElementById('convertedTemp');
+        const formulaDisplay = document.getElementById('formulaDisplay');
+        const errorMessage = document.getElementById('input-error');
+        const convertBtn = document.getElementById('convertBtn');
+
+        // Unit symbols
+        const unitSymbols = {
+            celsius: '°C',
+            fahrenheit: '°F',
+            kelvin: 'K'
+        };
+
+        // Form submission handler
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Clear previous errors
+            clearError();
+            
+            // Get form values
+            const tempValue = parseFloat(tempInput.value);
+            const fromUnit = document.querySelector('input[name="from-unit"]:checked').value;
+            const toUnit = document.querySelector('input[name="to-unit"]:checked').value;
+            
+            // Validate input
+            if (isNaN(tempValue)) {
+                showError('Please enter a valid number');
+                return;
+            }
+            
+            if (fromUnit === toUnit) {
+                showError('Please select different units for conversion');
+                return;
+            }
+            
+            try {
+                // Add loading state to button
+                convertBtn.innerHTML = '<span class="btn-icon">⏳</span> Converting...';
+                convertBtn.disabled = true;
+                
+                // Simulate slight delay for better UX
+                setTimeout(() => {
+                    try {
+                        // Perform conversion
+                        const result = TemperatureConverter.convert(tempValue, fromUnit, toUnit);
+                        
+                        // Display results
+                        displayResult(tempValue, fromUnit, result, toUnit);
+                        
+                        // Show formula
+                        const formula = TemperatureConverter.getFormula(fromUnit, toUnit);
+                        formulaDisplay.querySelector('.formula-text').textContent = `Formula: ${formula}`;
+                        
+                    } catch (conversionError) {
+                        showError(conversionError.message);
+                    } finally {
+                        // Reset button
+                        convertBtn.innerHTML = '<span class="btn-icon">🔄</span> Convert Temperature';
+                        convertBtn.disabled = false;
+                    }
+                }, 500);
+                
+            } catch (error) {
+                showError(error.message);
+                convertBtn.innerHTML = '<span class="btn-icon">🔄</span> Convert Temperature';
+                convertBtn.disabled = false;
+            }
+        });
+
+        // Display conversion result
+        function displayResult(originalValue, fromUnit, convertedValue, toUnit) {
+            originalTempElement.textContent = `${originalValue}${unitSymbols[fromUnit]}`;
+            convertedTempElement.textContent = `${convertedValue}${unitSymbols[toUnit]}`;
+            
+            // Show result section with animation
+            resultSection.style.display = 'block';
+            resultSection.style.opacity = '0';
+            resultSection.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                resultSection.style.opacity = '1';
+                resultSection.style.transform = 'translateY(0)';
+            }, 50);
+        }
+
+        // Error handling functions
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+            tempInput.classList.add('error');
+        }
+
+        function clearError() {
+            errorMessage.textContent = '';
+            errorMessage.style.display = 'none';
+            tempInput.classList.remove('error');
+        }
+
+        // Event listeners for better UX
+        tempInput.addEventListener('input', clearError);
+
+        // Auto-focus on input when page loads
+        window.addEventListener('load', () => {
+            tempInput.focus();
+        });
+
+        // Support Enter key for quick conversion
+        tempInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                form.dispatchEvent(new Event('submit'));
+            }
+        });
+
+        // Initial setup - hide result section
+        resultSection.style.display = 'none';
+    </script>
+</body>
+</html>
